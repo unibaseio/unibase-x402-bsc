@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling>=1.18.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "x402-payments"
+version = "0.1.0"
+description = "Reference implementation for sending x402 payments on Binance Smart Chain."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+license = { text = "MIT" }
+dependencies = [
+  "requests>=2.31.0",
+  "eth-account>=0.9.0",
+  "hexbytes>=0.3.1",
+  "eth-utils>=2.2.0",
+]
+
+[project.scripts]
+x402-payments = "x402_payments.cli:run_cli"
+
+[tool.uv]
+package = true
