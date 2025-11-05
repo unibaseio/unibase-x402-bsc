@@ -1,11 +1,31 @@
 # X402 Tools on BSC - Powered by Unibase
 
+Unibase operates the inaugural **x402 facilitator** on BNB Chain, unlocking low-cost, high-throughput payments for AI agents and automated workflows. The facilitator verifies cryptographically signed payment payloads and settles them on-chain so resource servers can monetize protected routes.
+
 This repository packages an end-to-end example for executing an [`x402`](https://docs.unibase.com/x402) payment on Binance Smart Chain (BSC) using Wrapped USDC.  
 It promotes the original standalone script into a reusable Python package with a CLI entry point so you can publish and consume it as a tool or integrate it into other agents.
+
+## Protocol Background
+
+### About x402
+The x402 payment protocol is HTTP-based. Resource servers declare payment requirements for specific routes, clients sign payment payloads with their private keys, and facilitators (such as this one) verify and settle the transfers on-chain.
+
+### About XUSD
+XUSD is an ERC-3009 compatible wrapped stablecoin for x402 payments on BNB Chain. Holders can wrap or unwrap to USDC on a 1:1 basis at any time, making it the canonical settlement asset for this facilitator.
+
+### Supported Assets
+- XUSD (`0xf3A3E4D9c163251124229Da6DC9C98D889647804`)
+- Other ERC-3009 compliant tokens
+
+> ℹ️ **Reminder:** Wrap your USDC on BSC into XUSD at [x402.unibase.com/xusd](https://www.x402.unibase.com/xusd) before initiating payments so the facilitator can approve and settle the transfer.
+
+### Facilitator Endpoint
+- Default `X402_FACILITATOR_URL`: `https://api.x402.unibase.com`
 
 ## Features
 - Loads payment configuration from environment variables (with optional `.env`).
 - Supports runtime overrides so agents can inject config without editing files.
+- Works with Wrapped USDC on BSC by settling through XUSD (ERC-3009).
 - Signs an ERC-3009 `TransferWithAuthorization` payload locally.
 - Verifies and settles the payment through the Unibase x402 facilitator.
 - Ships as an installable package exposing both a CLI and importable helpers.
@@ -18,7 +38,7 @@ It promotes the original standalone script into a reusable Python package with a
 ## Prerequisites
 - Python 3.10 or newer
 - [`uv`](https://github.com/astral-sh/uv) for dependency management
-- A funded wallet on BSC (mainnet by default) and a destination address
+- A wallet on BSC (mainnet by default) with XUSD (wrap USDC 1:1 on-chain) and a destination address
 
 ## Setup
 1. Copy the example environment file and fill in your real values:
